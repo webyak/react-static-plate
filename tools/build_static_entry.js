@@ -1,7 +1,6 @@
 import path from 'path';
 import WebpackIsomorphicTools from 'webpack-isomorphic-tools';
 import isomorphicConfig from './isomorphic.prod.config.js';
-import buildStatic from './build_static.js';
 
 const projectBasePath = path.resolve(__dirname, '..');
 
@@ -11,6 +10,7 @@ const webpackIsomorphicTools = new WebpackIsomorphicTools(isomorphicConfig)
   .development(false)
   .server(projectBasePath, () => {
     const { javascript: { app: bundle } } = webpackIsomorphicTools.assets();
+    const buildStatic = require('./build_static.js').default;
 
     buildStatic({ bundle });
   });

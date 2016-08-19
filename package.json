@@ -31,7 +31,8 @@
         "never"
       ],
       "new-cap": 0,
-      "global-require": 0
+      "global-require": 0,
+      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
     }
   },
   "engines": {

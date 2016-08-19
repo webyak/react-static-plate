@@ -28,7 +28,7 @@ Open [http://localhost:3000](http://localhost:3000) & have fun. 🐒
 
 ### Deploy
 
-Set your `host` in `config.json` and generate all the static files with `npm run build`. Then upload the contents of the `build/` folder to your hosting solution of choice. Finish!
+Set your `website` in `package.json` and generate all the static files with `npm run build`. Then upload the contents of the `build/` folder to your hosting solution of choice. Finish!
 
 You can also check out the production build on your local machine using `http-server`:
 

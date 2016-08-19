@@ -38,8 +38,6 @@
     "node": ">=4.4"
   },
   "dependencies": {
-    "radium": "^0.18.1",
-    "radium-normalize": "^2.0.4",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
     "react-fastclick": "^2.1.2",

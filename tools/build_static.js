@@ -16,7 +16,7 @@ import routes from '../client/routes.js';
  * Build a site by rendering every route into it's own file.
  * @param  {String} bundle Public path to bundled js file
  */
-const buildStatic = ({ bundle }) => {
+const buildStatic = ({ jsBundle, cssBundle }) => {
   const { website } = config.plate_config;
   const paths = getPaths(routes);
   // make sure the not found route is not part of the sitemap.
@@ -49,7 +49,8 @@ const buildStatic = ({ bundle }) => {
           metas: meta.toComponent(),
           links: link.toComponent(),
           scripts: script.toComponent(),
-          bundle,
+          jsBundle,
+          cssBundle,
           body,
         });
 

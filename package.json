@@ -1,6 +1,6 @@
 {
   "name": "react-static-plate",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Build static sites with React to host on Amazon S3, Github Pages, Surge et cetera",
   "license": "MIT",
   "private": true,

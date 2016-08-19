@@ -1,7 +1,5 @@
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { Style } from 'radium';
-import normalize from 'radium-normalize';
 
 /**
  * Render an html document from a template.
@@ -14,23 +12,27 @@ const renderDocument = (props) => {
     metas = [<meta key={1} name="description" content="Use react-helmet." />],
     links = [<link key={1} rel="shortcut icon" href="#" />],
     scripts,
-    bundle = '/app.js',
+    cssBundle,
+    jsBundle = '/bundle.js',
     body = '',
   }) => (
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1"
+        />
         {Title}
         {metas}
         {links}
         {scripts}
-        <Style rules={normalize} radiumConfig={{ userAgent: 'all' }} />
+        {cssBundle && <link rel="stylesheet" href={cssBundle} />}
       </head>
       <body>
         <div id="react-root" dangerouslySetInnerHTML={{ __html: body }} />
-        <script src={bundle} />
+        <script src={jsBundle} />
       </body>
     </html>
   );
@@ -40,7 +42,8 @@ const renderDocument = (props) => {
     metas: React.PropTypes.node,
     links: React.PropTypes.node,
     scripts: React.PropTypes.node,
-    bundle: React.PropTypes.string,
+    cssBundle: React.PropTypes.string,
+    jsBundle: React.PropTypes.string,
     body: React.PropTypes.string,
   };
 

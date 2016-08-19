@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import path from 'path';
 import WebpackIsomorphicTools from 'webpack-isomorphic-tools';
 import isomorphicConfig from './isomorphic.prod.config.js';
@@ -9,8 +10,12 @@ const projectBasePath = path.resolve(__dirname, '..');
 const webpackIsomorphicTools = new WebpackIsomorphicTools(isomorphicConfig)
   .development(false)
   .server(projectBasePath, () => {
-    const { javascript: { app: bundle } } = webpackIsomorphicTools.assets();
+    const { javascript, styles } = webpackIsomorphicTools.assets();
+
     const buildStatic = require('./build_static.js').default;
 
-    buildStatic({ bundle });
+    buildStatic({
+      jsBundle: javascript.bundle,
+      cssBundle: styles.bundle,
+    });
   });

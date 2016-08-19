@@ -1,23 +1,27 @@
-/* eslint-disable no-var, prefer-template */
+/* eslint-disable no-var, prefer-template, object-shorthand, func-names,
+  import/no-extraneous-dependencies */
 var webpack = require('webpack');
 var path = require('path');
-
-var DEV_PORT = process.env.DEV_PORT || 3000;
-var DEV_HOST = '//localhost:' + DEV_PORT + '/';
-var HMR_HOST = DEV_HOST + '__webpack_hmr';
+var autoprefixer = require('autoprefixer');
+var functions = require('postcss-functions');
+var atImport = require('postcss-import');
+var precss = require('precss');
+// var stylelint = require('stylelint');
+var rem = require('to-rem');
+var rucksack = require('rucksack-css');
 
 module.exports = {
-  devtool: 'inline-source-map',
+  devtool: 'eval-source-map',
   entry: {
-    app: [
-      'webpack-hot-middleware/client?path=' + HMR_HOST,
+    bundle: [
+      'webpack-hot-middleware/client?path=/__webpack_hmr',
       './client/index.js',
     ],
   },
   output: {
     path: path.resolve(__dirname, '../build'),
     filename: '[name].js',
-    publicPath: DEV_HOST,
+    publicPath: '/',
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
@@ -30,21 +34,28 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.json$/,
-        loaders: ['json-loader'],
-      },
-      {
-        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loaders: ['url?limit=10000&mimetype=application/font-woff'],
-      },
-      {
-        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loaders: ['file'],
+        test: /\.css$/,
+        loaders: [
+          'style?sourceMap',
+          'css?modules&importLoaders=1&localIdentName=[local]__[hash:base64:5]',
+          'postcss',
+        ],
       },
       {
         test: /\.(png|jpg|gif|ico)$/,
-        loaders: ['file?name=[name].[ext]'],
+        loaders: [
+          'file?name=[path][name].[ext]',
+        ],
       },
     ],
+  },
+  postcss: function () {
+    return [
+      atImport,
+      precss,
+      rucksack,
+      functions({ functions: { rem: rem } }),
+      autoprefixer,
+    ];
   },
 };

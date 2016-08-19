@@ -1,5 +1,4 @@
-/* eslint-disable no-console */
-import url from 'url';
+/* eslint-disable no-console, import/no-extraneous-dependencies */
 import express from 'express';
 import webpack from 'webpack';
 
@@ -18,15 +17,15 @@ app.use(require('webpack-hot-middleware')(compiler));
 
 app.get('*', (req, res) => {
   const html = renderDocument({
-    bundle: `${webpackConfig.output.publicPath}app.js`,
+    bundle: `${webpackConfig.output.publicPath}bundle.js`,
   });
 
   res.send(html);
 });
 
-const { port } = url.parse(`http:${webpackConfig.output.publicPath}`);
+const port = process.env.PORT || 3000;
 
-app.listen(port, 'localhost', (error) => {
+app.listen(port, '0.0.0.0', (error) => {
   if (error) return console.error(error);
-  return console.log(`Dev server listening at http://localhost:${port}`);
+  return console.log(`Dev server listening at http://0.0.0.0:${port}`);
 });

@@ -1,7 +1,16 @@
-/* eslint-disable no-var */
+/* eslint-disable no-var, prefer-template, object-shorthand, func-names,
+  import/no-extraneous-dependencies */
 var webpack = require('webpack');
 var path = require('path');
 var WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var autoprefixer = require('autoprefixer');
+var functions = require('postcss-functions');
+var atImport = require('postcss-import');
+var precss = require('precss');
+// var stylelint = require("stylelint");
+var rem = require('to-rem');
+var rucksack = require('rucksack-css');
 
 // Plugin that extracts and keeps track of the real paths to the assets,
 // saved within webpack-assets.json
@@ -14,7 +23,7 @@ var webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(
 module.exports = {
   devtool: 'source-map',
   entry: {
-    app: ['./client/index.js'],
+    bundle: ['./client/index.js'],
   },
   output: {
     path: path.resolve(__dirname, '../build'),
@@ -33,6 +42,7 @@ module.exports = {
       screw_ie8: true,
       compressor: { warnings: false },
     }),
+    new ExtractTextPlugin('bundle-[contenthash].css', { allChunks: true }),
     webpackIsomorphicToolsPlugin,
   ],
   module: {
@@ -43,21 +53,31 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.json$/,
-        loaders: ['json-loader'],
-      },
-      {
-        test: webpackIsomorphicToolsPlugin.regular_expression('woffFonts'),
-        loaders: ['url?limit=10000&mimetype=application/font-woff&name=assets/[name]-[hash].[ext]'],
-      },
-      {
-        test: webpackIsomorphicToolsPlugin.regular_expression('fonts'),
-        loaders: ['file?name=assets/[name]-[hash].[ext]'],
+        test: webpackIsomorphicToolsPlugin.regular_expression('css'),
+        loader: ExtractTextPlugin.extract(
+          'style',
+          [
+            'css?minimize&modules&importLoaders=1&localIdentName=_[hash:base64:5]',
+            'postcss',
+          ]
+        ),
       },
       {
         test: webpackIsomorphicToolsPlugin.regular_expression('images'),
-        loaders: ['file?name=assets/[name]-[hash].[ext]'],
+        loaders: [
+          'file?name=img/[sha512:hash:base64:7].[ext]',
+          'image-webpack?optimizationLevel=7&progressive=true',
+        ],
       },
     ],
+  },
+  postcss: function () {
+    return [
+      atImport,
+      precss,
+      rucksack,
+      functions({ functions: { rem: rem } }),
+      autoprefixer,
+    ];
   },
 };

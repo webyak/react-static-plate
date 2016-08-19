@@ -12,6 +12,9 @@
     "build:static": "cross-env NODE_ENV=production babel-node ./tools/build_static_entry.js",
     "build": "npm run clean && npm run build:bundle && npm run build:static"
   },
+  "plate_config": {
+    "website": "http://example.com"
+  },
   "babel": {
     "presets": [
       "es2015",

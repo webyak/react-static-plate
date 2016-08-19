@@ -8,7 +8,7 @@ import renderSitemap from './lib/render_sitemap.js';
 import writeFile from './lib/write_file.js';
 import renderDocument from './lib/render_document.js';
 
-import config from '../config.json';
+import config from '../package.json';
 import webpackConfig from './webpack.prod.config.js';
 import routes from '../client/routes.js';
 
@@ -17,12 +17,12 @@ import routes from '../client/routes.js';
  * @param  {String} bundle Public path to bundled js file
  */
 const buildStatic = ({ bundle }) => {
-  const { host } = config;
+  const { website } = config.plate_config;
   const paths = getPaths(routes);
   // make sure the not found route is not part of the sitemap.
   const sitemapPaths = paths.filter(value => value !== '/*');
 
-  const sitemap = renderSitemap({ paths: sitemapPaths, hostname: host });
+  const sitemap = renderSitemap({ paths: sitemapPaths, hostname: website });
   writeFile({
     dir: webpackConfig.output.path,
     fileName: '/sitemap.xml',

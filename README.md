@@ -3,6 +3,8 @@
 > Build static sites with React & CSS Modules to host on [Amazon S3](https://aws.amazon.com/s3/), [Github Pages](https://pages.github.com/), [Surge](https://surge.sh/) etc.
 > *React | React Router | Babel 6 | CSS Modules | PostCSS | Webpack*
 
+<img src="https://cloud.githubusercontent.com/assets/9054585/17802667/d4ecfaac-661b-11e6-87f4-82dbae105371.jpg" alt="" width="600"/>
+
 ### Features
 
 - ES6+.

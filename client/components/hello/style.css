@@ -1,0 +1,13 @@
+.wrap {
+  padding-top: rem(150);
+  text-align: center;
+}
+
+.heading {
+  font-size: rem(45);
+  line-height: 2;
+  cursor: default;
+}
+.heading:hover {
+  font-weight: bold;
+}

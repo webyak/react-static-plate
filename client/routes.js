@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
-import Layout from './components/layout.js';
-import Hello from './components/hello.js';
+import Layout from './components/layout/';
+import Hello from './components/hello/';
 import NotFound from './components/not_found.js';
 
 const routes = (

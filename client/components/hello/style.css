@@ -8,6 +8,7 @@
   line-height: 2;
   cursor: default;
 }
+
 .heading:hover {
   font-weight: bold;
 }

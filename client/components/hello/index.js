@@ -3,11 +3,14 @@
 // ==================================================
 
 import React from 'react';
-import { wrap, heading } from './style.css';
+import classnames from 'classnames';
+import style from './style.css';
+
+const cx = classnames.bind(style);
 
 const Hello = () => (
-  <div className={wrap}>
-    <h1 className={heading}>Hello React</h1>
+  <div className={cx('wrap')}>
+    <h1 className={cx('heading')}>Hello React</h1>
     <div>🙈</div>
   </div>
 );

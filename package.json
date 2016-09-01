@@ -1,9 +1,17 @@
 {
   "name": "react-static-plate",
   "version": "0.2.0",
-  "description": "Build static sites with React to host on Amazon S3, Github Pages, Surge et cetera",
+  "description": "Build fast static sites with React & CSS Modules.",
   "license": "MIT",
   "private": true,
+  "keywords": [
+    "react",
+    "static",
+    "site",
+    "boilerplate",
+    "postcss",
+    "css modules"
+  ],
   "scripts": {
     "start:dev": "babel-node ./tools/dev_server.js",
     "start": "npm run start:dev",
@@ -48,7 +56,6 @@
     "node": ">=4.4"
   },
   "dependencies": {
-    "classnames": "^2.2.5",
     "normalize.css": "^4.2.0",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",

@@ -3,7 +3,7 @@
 // ==================================================
 
 import React from 'react';
-import classnames from 'classnames';
+import classnames from 'classnames/bind';
 import styles from './style.css';
 
 const cx = classnames.bind(styles);
